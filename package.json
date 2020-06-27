@@ -1,5 +1,5 @@
 {
-  "name": "Authentication",
+  "name": "authentication",
   "version": "1.0.0",
   "description": "basic setup for authentication related applications",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ritvikbhatia/codial.git"
+    "url": "git+https://github.com/ritvikbhatia/Authentication.git"
   },
   "author": "Ritvik Bhatia",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ritvikbhatia/codial/issues"
+    "url": "https://github.com/ritvikbhatia/Authentication/issues"
   },
-  "homepage": "https://github.com/ritvikbhatia/codial#readme",
+  "homepage": "https://github.com/ritvikbhatia/Authentication#readme",
   "dependencies": {
     "connect-flash": "^0.1.1",
     "connect-mongo": "^3.2.0",
