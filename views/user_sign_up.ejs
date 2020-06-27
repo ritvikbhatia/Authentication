@@ -1,14 +1,49 @@
-<h1>Sign Up</h1>
+<link rel="stylesheet" href="/css/signup.css">
 
-<form action="/users/create" method="POST">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-    <input type="submit" value="Sign Up">
+<h1>Create a new Account</h1>
+
+<div id='box'>
+<form action="/users/create" method="POST" id="demo-form">
+    
+    <div id='inner'>
+        <div>
+            <label for="name">Enter your name</label>
+            <input type="text" name="name" placeholder="Your Name" required>
+        </div>
+        <div>
+            <label for="email">Enter your Email</label>
+            <input type="email" name="email" placeholder="Your Email" required>
+        </div>
+        <div>
+        <label for="password">Enter your password</label>
+        <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <div>
+        <label for="password">Enter your password again</label>
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+        </div>
+        <button class="g-recaptcha btn btn-dark" 
+        data-sitekey="6LfASqoZAAAAAKXKs7Sj76vxvJhxeCWh3-PS9IaW" 
+        data-callback='onSubmit' 
+        data-action='submit'>Create Account</button>
+    </div>
 
 </form>
 
 <p>
-    <a href="/users/auth/google">Google Sign In/Sign Up</a>
+    <a href="/users/auth/google"><i class="fab fa-google"></i> Signup with Google</a>
 </p>
+</div>
+<p>
+    Already a user??
+    <p>
+    <a href="/users/sign-in"><button class="btn btn-dark" >Sign In</button></a>
+    </p>
+    
+</p>
+
+<script>
+    function onSubmit(token) {
+      document.getElementById("demo-form").submit();
+    }
+    </script>

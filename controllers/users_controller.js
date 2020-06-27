@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
+const bcrypt = require('bcrypt');
 
 // let's keep it same as before
 module.exports.profile = function(req, res){
@@ -74,11 +75,15 @@ module.exports.create = function(req, res){
         if(err){req.flash('error', err); return}
 
         if (!user){
-            User.create(req.body, function(err, user){
-                if(err){req.flash('error', err); return}
-
-                return res.redirect('/users/sign-in');
-            })
+            bcrypt.hash(req.body.password, 10, function(err, hash) {
+                req.body.password=hash;
+                User.create(req.body, function(err, user){
+                    if(err){req.flash('error', err); return}
+    
+                    return res.redirect('/users/sign-in');
+                })
+            });;
+           
         }else{
             req.flash('success', 'You have signed up, login to continue!');
             return res.redirect('back');
@@ -97,7 +102,5 @@ module.exports.createSession = function(req, res){
 module.exports.destroySession = function(req, res){
     req.logout();
     req.flash('success', 'You have logged out!');
-
-
     return res.redirect('/');
 }

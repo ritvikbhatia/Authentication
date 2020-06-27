@@ -3,9 +3,23 @@
 
 
     <!-- if user matches then show the form -->
+    <h1> Reset your details</h1>
+    <div id="box">
     <form action="/users/update/<%= locals.user.id %>"  method="POST">
-        <input type="text" name="name" placeholder="Your Name" value="<%= locals.user.name %>" required>
+        <div>
+            <label for="name">Enter your your new Name</label>
+            <input type="text" name="name" placeholder="Your Name" value="<%= locals.user.name %>" required>
+    </div>
+    <div>
+        <label for="email">Enter your your Email</label>
         <input type="email" name="email" placeholder="Your Email" value="<%= locals.user.email %>" required>
-        <input type="submit"  value="Update">
+    </div>
+    <button type="submit" class="btn btn-dark">Update</button>
+
+
     </form>
+</div>
+    <p style="padding: 2%;">
+        <a href="/users/sign-out"><button class="btn btn-dark" >Sign out</button></a>
+    </p>
     
