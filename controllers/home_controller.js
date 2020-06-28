@@ -8,4 +8,12 @@ module.exports.home = async function(req, res){
 
 
 }
+module.exports.reset = async function(req, res){
 
+    return res.render('users_reset', {
+        title: "Home",
+        idd:req.params.id
+    });
+
+
+}

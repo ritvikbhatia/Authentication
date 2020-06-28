@@ -20,15 +20,15 @@ passport.use(new LocalStrategy({
                 return done(err);
             }
             bcrypt.compare(password, user.password, function(err, result) {
-                if (!user || result){
-                
+                if (!user || !result){
                     req.flash('error', 'Invalid Username/Password');
                     return done(null, false);
                 }
+                return done(null, user);
             });
             
 
-            return done(null, user);
+           
         });
     }
 

@@ -7,12 +7,16 @@
     <div id="box">
     <form action="/users/update/<%= locals.user.id %>"  method="POST">
         <div>
-            <label for="name">Enter your your new Name</label>
+            <label for="name">Enter your new Name</label>
             <input type="text" name="name" placeholder="Your Name" value="<%= locals.user.name %>" required>
     </div>
     <div>
-        <label for="email">Enter your your Email</label>
+        <label for="email">Enter your new Email</label>
         <input type="email" name="email" placeholder="Your Email" value="<%= locals.user.email %>" required>
+    </div>
+    <div>
+        <label for="email">Enter your new Password</label>
+        <input type="password" name="password" placeholder="New Password">
     </div>
     <button type="submit" class="btn btn-dark">Update</button>
 

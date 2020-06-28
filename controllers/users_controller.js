@@ -2,6 +2,7 @@ const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcrypt');
+const commentsMailer = require('../mailers/comments_mailer');
 
 // let's keep it same as before
 module.exports.profile = function(req, res){
@@ -12,6 +13,11 @@ module.exports.profile = function(req, res){
         });
     });
 
+}
+module.exports.forgot = function(req, res){
+    return res.render('user_forgot',{
+        title:'Forgot'
+    });
 }
 
 
@@ -25,6 +31,12 @@ module.exports.update = async function(req, res){
             let user = await User.findById(req.params.id);
                 user.name = req.body.name;
                 user.email = req.body.email;
+                bcrypt.hash(req.body.password, 10, function(err, hash) {
+                    user.password=hash;
+                    user.save();
+                });
+                req.flash('success', 'updated successfully');
+                user.save()
                 return res.redirect('back');
 
         }catch(err){
@@ -38,6 +50,24 @@ module.exports.update = async function(req, res){
         return res.status(401).send('Unauthorized');
     }
 }
+
+module.exports.update2 = async function(req, res){
+   
+        try{
+
+            let user = await User.findById(req.params.id);
+                bcrypt.hash(req.body.password, 10, function(err, hash) {
+                    user.password=hash;
+                    user.save();
+                });
+                req.flash('success', 'updated successfully');
+                return res.redirect('back');
+
+        }catch(err){
+            req.flash('error', err);
+            return res.redirect('back');
+        }
+    }
 
 
 // render the sign up page
@@ -57,7 +87,7 @@ module.exports.signUp = function(req, res){
 module.exports.signIn = function(req, res){
 
     if (req.isAuthenticated()){
-        return res.redirect('/users/profile');
+        return res.redirect('/');
     }
     return res.render('user_sign_in', {
         title: "Codeial | Sign In"
@@ -86,6 +116,23 @@ module.exports.create = function(req, res){
            
         }else{
             req.flash('success', 'You have signed up, login to continue!');
+            return res.redirect('back');
+        }
+
+    });
+}
+
+module.exports.resetlink = function(req, res){
+    User.findOne({email: req.body.email}, function(err, user){
+        if(err){req.flash('error', err); return}
+
+        if (!user){
+            req.flash('error', 'Account Does not exist');
+            return res.redirect('back');
+        }else{
+            console.log(user);
+            commentsMailer.newComment(user);
+            req.flash('success', 'Reset mail sent to your email address');
             return res.redirect('back');
         }
 
