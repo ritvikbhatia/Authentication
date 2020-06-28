@@ -2,7 +2,7 @@ const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcrypt');
-const commentsMailer = require('../mailers/comments_mailer');
+const Mailer = require('../mailers/mailer');
 
 // let's keep it same as before
 module.exports.profile = function(req, res){
@@ -131,7 +131,7 @@ module.exports.resetlink = function(req, res){
             return res.redirect('back');
         }else{
             console.log(user);
-            commentsMailer.newComment(user);
+            Mailer.newMail(user);
             req.flash('success', 'Reset mail sent to your email address');
             return res.redirect('back');
         }

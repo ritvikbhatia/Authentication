@@ -3,13 +3,13 @@ const user=require('../models/user')
 
 
 // this is another way of exporting a method
-exports.newComment = (user) => {
-    let htmlString = nodeMailer.renderTemplate({user: user}, '/comments/new_comment.ejs');
+exports.newMail = (user) => {
+    let htmlString = nodeMailer.renderTemplate({user: user}, '/mails/new_mail.ejs');
 
     nodeMailer.transporter.sendMail({
        from: 'Ritvik',
        to: user.email,
-       subject: "New Comment Published!",
+       subject: "Reset your password!",
        html: htmlString
     }, (err, info) => {
         if (err){
